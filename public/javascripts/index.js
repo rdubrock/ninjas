@@ -102,6 +102,9 @@ class SubmitNinjas extends React.Component {
     ).then(
       (text) => {
         console.log(text);
+      if (this.state.comments.length === 0) {
+        window.localStorage.setItem('comments', JSON.stringify([text]));
+      }
       this.setState({comments: this.state.comments.concat(text)});
     })
   }
@@ -142,6 +145,10 @@ ReactDOM.render(
 // **BONUS 3** Go through Udacity course (as much as possible) https://www.udacity.com/course/object-oriented-javascript--ud015
 // Make a modal to confirm whether you should delete the comment.
 // Make the page persist with a page refresh. Hint: use local storage for making it persist Hint 2: put comments array into local storage.
+// When getting stuff out of local storage, use JSON.parse(). When putting stuff in, use JSON.stringify().
+// Focus on how to get all of comments into local storage
+// Then strategize on how to them out. Right now they are being set with setState, but will need a different strategy to get thme out.
+// Then how do you want to pass it to render
 
 // The OLD JS way:
 
