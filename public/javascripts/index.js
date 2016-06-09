@@ -3,133 +3,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Modal, Button, Grid} from "react-bootstrap";
-const apiKey = "fPrw65OQb0mshVolXUIZ2TtZaQr2p1Md4c8jsn1lBPos0wcPXu";
-const URL = "https://yoda.p.mashape.com/yoda?sentence=";
-
-class TextWrittenInStoneNinjas extends React.Component {
-  render() {
-    return (
-      <div className="well well-sm">
-      <i>{this.props.preview}</i>
-      </div>
-    );
-  }
-}
-
-class CommentsNinjas extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {};
-    this.clickToggle = this.clickToggle.bind(this)
-  }
-  clickToggle() {
-    this.setState({clicked: !this.state.clicked})
-  }
-  deleteComment(comment) {
-    this.props.deleteComment(comment);
-  }
-  render() {
-    const {comment} = this.props;
-    const {clicked, modal} = this.state;
-    const modalInstance = (
-      <div className="static-modal">
-        <Modal.Dialog>
-          <Modal.Header>
-            <Modal.Title>Delete a Ninja</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>
-            Are you sure you want to delete this ninja?
-          </Modal.Body>
-
-          <Modal.Footer>
-            <Button onClick={() => this.setState({modal: false})}>No! Save the ninja!</Button>
-            <Button bsStyle="danger" onClick={() => {
-              this.deleteComment(comment);
-              this.setState({modal: false})
-          }
-        }>Delete the suckah!</Button>
-          </Modal.Footer>
-
-        </Modal.Dialog>
-      </div>
-    );
-    console.log("Comments Ninjas rendered")
-    return (
-      <li className="list-group-item list-group-item-warning">
-        {clicked ?
-          <span onClick={this.clickToggle}><s>{comment}</s></span>
-        : <span onClick={this.clickToggle}>{comment}</span>}
-        {modal ?
-        modalInstance
-        : null}
-        <Button type="button" bsStyle="primary" style={{float: "right"}} onClick={() =>
-          this.setState({modal: true})
-          // ReactDOM.render(modalInstance, mountNode);
-          // this.deleteComment(comment)
-        }>Delete Comment</Button>
-      </li>
-    );
-  }
-}
-
-class SubmitNinjas extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      preview: '',
-      comments: []
-    };
-  }
-  deleteComment(comment) {
-    let index = this.state.comments.findIndex( (element) => comment === element);
-    this.state.comments.splice(index, 1);
-    this.setState({comments: this.state.comments})
-}
-  textChange(e) {
-    console.log(e.target.value);
-    this.setState({preview: e.target.value})
-  }
-  submitComment(e) {
-    let requestYodaSpeak = new Request(URL + this.state.preview, {
-      headers: {
-        'X-Mashape-Key': apiKey,
-        'Accept': "text/plain"
-      }
-    });
-    fetch(requestYodaSpeak).then(
-      (response) => response.text()
-    ).then(
-      (text) => {
-        console.log(text);
-      if (this.state.comments.length === 0) {
-        window.localStorage.setItem('comments', JSON.stringify([text]));
-      }
-      this.setState({comments: this.state.comments.concat(text)});
-    })
-  }
-  render() {
-    console.log("Submit Ninjas Rendered");
-    return (
-      <Grid>
-        <label for="speakToYodaInput">Enter Your Yoda Message Here:</label>
-        <div className="input-group">
-        <input type='text' className="form-control" id="speakToYodaInput" placeholder='Enter some ninjas kicking text here' onChange={(e) => this.textChange(e)}/>
-        <span className="input-group-btn">
-        <button type='button' className="btn btn-success" id="speakToYodaInput" onClick={
-          this.submitComment.bind(this)
-        }>Click this dang thing now!</button>
-        </span>
-        </div>
-        <br></br>
-        {this.state.preview ? <TextWrittenInStoneNinjas preview={this.state.preview}/> : null}
-        <ul className="list-group">
-          {this.state.comments.map((comment, index) => <CommentsNinjas key={index} comment={comment} deleteComment={this.deleteComment.bind(this)}/>)}
-        </ul>
-      </Grid>
-    );
-  }
-}
+import SubmitNinjas from './components/submitNinjas';
 
 ReactDOM.render(
   <SubmitNinjas />,
@@ -147,7 +21,7 @@ ReactDOM.render(
 // Make the page persist with a page refresh. Hint: use local storage for making it persist Hint 2: put comments array into local storage.
 // When getting stuff out of local storage, use JSON.parse(). When putting stuff in, use JSON.stringify().
 // Focus on how to get all of comments into local storage
-// Then strategize on how to them out. Right now they are being set with setState, but will need a different strategy to get thme out.
+// Then strategize on how to get them out. Right now they are being set with setState, but will need a different strategy to get thme out.
 // Then how do you want to pass it to render
 
 // The OLD JS way:
