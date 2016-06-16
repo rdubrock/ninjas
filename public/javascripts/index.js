@@ -1,8 +1,6 @@
 "use strict"
 
-import React from "react";
 import ReactDOM from "react-dom";
-import {Modal, Button, Grid} from "react-bootstrap";
 import SubmitNinjas from './components/submitNinjas';
 
 ReactDOM.render(
