@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-class TextWrittenInStoneNinjas extends Component {
+class Preview extends Component {
   render() {
     return (
       <div className="well well-sm">
@@ -10,4 +10,4 @@ class TextWrittenInStoneNinjas extends Component {
   }
 }
 
-export default TextWrittenInStoneNinjas
+export default Preview

@@ -1,10 +1,11 @@
 "use strict"
 
 import ReactDOM from "react-dom";
-import SubmitNinjas from './components/submitNinjas';
+import React from "react";
+import TextList from './components/textList';
 
 ReactDOM.render(
-  <SubmitNinjas />,
+  <TextList />,
   document.getElementById('content')
 );
 
@@ -21,6 +22,9 @@ ReactDOM.render(
 // Focus on how to get all of comments into local storage
 // Then strategize on how to get them out. Right now they are being set with setState, but will need a different strategy to get thme out.
 // Then how do you want to pass it to render
+// 6/16/16 https://egghead.io/courses/getting-started-with-redux
+// check it out
+
 
 // The OLD JS way:
 
