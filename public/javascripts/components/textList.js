@@ -13,14 +13,19 @@ const URL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?versio
 class TextList extends React.Component {
   constructor(props, context) {
     super(props, context);
+    let parsedComments;
+    if (window.localStorage.comments) {
+      parsedComments = JSON.parse(window.localStorage.comments)
+    }
     this.state = {
       preview: '',
-      comments: JSON.parse(window.localStorage.comments) || []
+      comments: parsedComments || []
     };
   }
   deleteComment(comment) {
     let nooStorage = JSON.parse(window.localStorage.comments);
-    let index = this.state.comments.findIndex( (element) => comment === element);
+    let index = this.state.comments.findIndex( (element) => comment === element.text);
+    console.log(index);
     this.state.comments.splice(index, 1);
     this.setState({comments: this.state.comments});
     nooStorage.splice(index, 1);
@@ -52,7 +57,15 @@ class TextList extends React.Component {
           documentToneCategories: json.document_tone.tone_categories,
           sentencesTone: json.sentences_tone
         })
-        this.setState({comments: this.state.comments})
+        this.setState({comments: this.state.comments});
+        window.localStorage.setItem('comments', JSON.stringify(this.state.comments))
+        // if (!window.localStorage.comments) {
+        //   window.localStorage.setItem('comments', JSON.stringify([this.state.comments]))
+        // } else {
+        //   let oldLocalStorage = JSON.parse(localStorage.comments);
+        //   let newLocalStorage = oldLocalStorage.push(this.state.preview);
+        //   window.localStorage.setItem('comments', JSON.stringify(newLocalStorage))
+        // }
       }
     )
   //   var tone_analyzer = watson.tone_analyzer({
