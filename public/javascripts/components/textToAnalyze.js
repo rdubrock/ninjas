@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Modal, Button, Table} from "react-bootstrap";
+import {interpretations} from "../../JSON/tone_interpretations";
 
 class TextToAnalyze extends Component {
   constructor(props, context) {
@@ -52,29 +53,69 @@ class TextToAnalyze extends Component {
         <Button type="button" bsStyle="primary" style={{float: "right"}} onClick={() =>
           this.setState({modal: true})
         }>Delete Comment</Button>
-        <div><i><b>Most prevalent tone:&nbsp;
+        <br/>
+        <br/>
+        <div><i><b>Most prevalent emotion tone:&nbsp;
         {documentToneCategories[0].tones.sort(function(a, b) {
+          return b.score - a.score;
+        })[0].tone_name}
+        <br/>
+        Most prevalent language tone:&nbsp;
+        {documentToneCategories[1].tones.sort(function(a, b) {
+          return b.score - a.score;
+        })[0].tone_name}
+        <br/>
+        Most prevalent social tone:&nbsp;
+        {documentToneCategories[2].tones.sort(function(a, b) {
           return b.score - a.score;
         })[0].tone_name}
         <Table striped bordered condensed hover>
           <thead>
             <tr>
-              <th>Emotion Tone</th>
+              <th>Tone</th>
               <th>Score</th>
-              <th>Intensity</th>
+              <th>Interpretation</th>
             </tr>
           </thead>
           <tbody>
           {documentToneCategories[0].tones.sort(function(a, b) {
             return b.score - a.score;
           }).map(function (toneCategory, index) {
-            return (
-            <tr key={index}>
-              <td>{toneCategory.tone_name}</td>
-              <td>{toneCategory.score}</td>
-              <td>{ (toneCategory.score > .75) ? "Highly Likely" : ((toneCategory.score < .5) ? "Not Likely" : "Somewhat Likely" )}</td>
-            </tr>
-          )
+            if (toneCategory.score >= .5) {
+              return (
+              <tr key={index}>
+                <td>{toneCategory.tone_name}</td>
+                <td>{toneCategory.score}</td>
+                <td>{ toneCategory.score > .75 ? "Intensity: Highly Likely" : "Intensity: Somewhat Likely" }</td>
+              </tr>
+              )
+            }
+          })}
+          {documentToneCategories[1].tones.sort(function(a, b) {
+            return b.score - a.score;
+          }).map(function (toneCategory, index) {
+            if (toneCategory.score >= .75 || toneCategory.score < .25) {
+              return (
+              <tr key={index}>
+                <td>{toneCategory.tone_name}</td>
+                <td>{toneCategory.score}</td>
+                <td>{ toneCategory.score > .75 ? interpretations[toneCategory.tone_id].high : interpretations[toneCategory.tone_id].low }</td>
+              </tr>
+              )
+            }
+          })}
+          {documentToneCategories[2].tones.sort(function(a, b) {
+            return b.score - a.score;
+          }).map(function (toneCategory, index) {
+            if (toneCategory.score >= .75 || toneCategory.score < .25) {
+              return (
+              <tr key={index}>
+                <td>{toneCategory.tone_name}</td>
+                <td>{toneCategory.score}</td>
+                <td>{ toneCategory.score > .75 ? interpretations[toneCategory.tone_id].high : interpretations[toneCategory.tone_id].low }</td>
+              </tr>
+              )
+            }
           })}
           </tbody>
         </Table>
