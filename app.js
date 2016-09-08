@@ -3,6 +3,9 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var watson = require("watson-developer-cloud");
+const username = "051111a8-6bc4-4e6e-a88d-8d340b69598b";
+const password = "GdXQFWYlCQhz";
 
 var routes = require('./routes/index');
 var app = express();
@@ -15,6 +18,32 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static(path.join(__dirname, 'public')));
+
+app.get("/watsonRequest", (request, response, next) => {
+  response.send("hello")
+})
+
+app.post("/watsonRequest", (request, response, next) => {
+    var tone_analyzer = watson.tone_analyzer({
+      username,
+      password,
+      version: 'v3',
+      version_date: '2016-05-19'
+    });
+    tone_analyzer.tone({
+      text: request.body.text
+    },
+  function(err, tone) {
+    if (err) console.log(err);
+    else {
+      console.log(JSON.stringify(tone, null, 2))
+      response.json(tone);
+    }
+  })
+
+})
+
+
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
