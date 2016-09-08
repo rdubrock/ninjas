@@ -5,14 +5,14 @@ export let interpretations = {
   },
   "analytical": {
     "low":  "The text contains little or no evidence of analytical tone.",
-    "high": "more likely to be perceived as intellectual, rational, systematic, emotionless, or impersonal."
+    "high": "More likely to be perceived as intellectual, rational, systematic, emotionless, or impersonal."
   },
   "confident":  {
     "low": "The text contains little or no evidence of confidence in tone.",
     "high": "More than 0.75 - more likely to be perceived as assured, collected, hopeful, or egotistical."
   },
   "agreeableness_big5": {
-    "low": "more likely to be perceived as selfish, uncaring, uncooperative, self-interested, confrontational, skeptical, or arrogant.",
+    "low": "More likely to be perceived as selfish, uncaring, uncooperative, self-interested, confrontational, skeptical, or arrogant.",
     "high": "More likely to be perceived as caring, sympathetic, cooperative, compromising, trustworthy, or humble."
   },
   "emotional_range_big5": {

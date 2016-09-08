@@ -21,15 +21,15 @@ class TextToAnalyze extends Component {
       <div className="static-modal">
         <Modal.Dialog>
           <Modal.Header>
-            <Modal.Title>Delete a Ninja</Modal.Title>
+            <Modal.Title>Delete a Message</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            Are you sure you want to delete this ninja?
+            Are you sure you want to delete this message?
           </Modal.Body>
 
           <Modal.Footer>
-            <Button onClick={() => this.setState({modal: false})}>No! Save the ninja!</Button>
+            <Button onClick={() => this.setState({modal: false})}>No! Save the message!</Button>
             <Button bsStyle="danger" onClick={() => {
               this.deleteComment(text);
               this.setState({modal: false})
@@ -40,8 +40,6 @@ class TextToAnalyze extends Component {
         </Modal.Dialog>
       </div>
     );
-    console.log("Comments Ninjas rendered");
-    console.log(documentToneCategories);
     return (
       <li className="list-group-item list-group-item-warning">
         {clicked ?
@@ -86,7 +84,7 @@ class TextToAnalyze extends Component {
               <tr key={index}>
                 <td>{toneCategory.tone_name}</td>
                 <td>{toneCategory.score}</td>
-                <td>{ toneCategory.score > .75 ? "Intensity: Highly Likely" : "Intensity: Somewhat Likely" }</td>
+                <td>{ toneCategory.score > .75 ? "Tone Presence: Highly Present" : "Tone Presence: Somewhat Present" }</td>
               </tr>
               )
             }

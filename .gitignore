@@ -1,2 +1,4 @@
 node_modules
 jspm_packages
+user_data.js
+npm-debug.log
