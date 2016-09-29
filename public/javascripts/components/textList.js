@@ -26,7 +26,10 @@ class TextList extends React.Component {
     window.localStorage.setItem('comments', JSON.stringify(nooStorage));
 }
   textChange(e) {
-    this.setState({preview: e.target.value})
+    this.setState({
+      preview: e.target.value,
+      input: e.target
+    });
   }
   submitComment(e) {
     let sendTextToWatson = new Request('/watsonRequest', {
@@ -49,7 +52,11 @@ class TextList extends React.Component {
           documentToneCategories: json.document_tone.tone_categories,
           sentencesTone: json.sentences_tone
         })
-        this.setState({comments: this.state.comments});
+        this.setState({
+          comments: this.state.comments,
+          preview: '',
+        });
+        this.state.input.value= '';
         window.localStorage.setItem('comments', JSON.stringify(this.state.comments))
       }
     )
