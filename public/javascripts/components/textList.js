@@ -2,6 +2,7 @@ import React from "react";
 import {Button, Grid} from "react-bootstrap";
 import TextToAnalyze from "./textToAnalyze";
 import Preview from "./preview";
+import TextExplanation from "./textExplanation"
 const URL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19";
 
 class TextList extends React.Component {
@@ -56,7 +57,7 @@ class TextList extends React.Component {
   render() {
     return (
       <Grid>
-        <label for="speakToWatsonInput">Enter Your Message for Watson Here:</label>
+        <TextExplanation/>
         <div className="input-group">
         <input type='text' className="form-control" id="speakToWatsonInput" placeholder='Enter a message for the Watson tone analyzer' onChange={(e) => this.textChange(e)}/>
         <span className="input-group-btn">

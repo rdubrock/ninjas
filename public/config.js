@@ -21,6 +21,7 @@ System.config({
     "react-bootstrap": "npm:react-bootstrap@0.29.4",
     "react-dom": "npm:react-dom@15.1.0",
     "watson-developer-cloud": "npm:watson-developer-cloud@1.9.3",
+    "whatwg-fetch": "npm:whatwg-fetch@1.0.0",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },
