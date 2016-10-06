@@ -67,7 +67,7 @@ class TextToAnalyze extends Component {
         {documentToneCategories[2].tones.sort(function(a, b) {
           return b.score - a.score;
         })[0].tone_name}
-        <Table striped bordered condensed hover>
+        <Table striped bordered condensed hover responsive>
           <thead>
             <tr>
               <th>Tone</th>
