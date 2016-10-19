@@ -65,13 +65,12 @@ class TextList extends React.Component {
     return (
       <Grid>
         <TextExplanation/>
-        <div className="input-group">
-        <input type='text' className="form-control" id="speakToWatsonInput" placeholder='Enter a message for the Watson tone analyzer' onChange={(e) => this.textChange(e)}/>
-        <span className="input-group-btn">
-        <button type='button' className="btn btn-success" id="speakToWatsonInput" onClick={
+        <div className="form-group">
+        <textarea type='text' className="form-control" rows="3" id="speakToWatsonInput" placeholder='Enter a message for the Watson tone analyzer' onChange={(e) => this.textChange(e)}/>
+        <br></br>
+        <button type='button' className="btn btn-success" onClick={
           this.submitComment.bind(this)
         }>Click this dang thing now!</button>
-        </span>
         </div>
         <br></br>
         {this.state.preview ? <Preview preview={this.state.preview}/> : null}
