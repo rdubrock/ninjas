@@ -2,6 +2,7 @@ import React from "react";
 import {Button, Grid} from "react-bootstrap";
 import TextToAnalyze from "./textToAnalyze";
 import Preview from "./preview";
+import TextExplanation from "./textExplanation"
 const URL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19";
 
 class TextList extends React.Component {
@@ -25,7 +26,10 @@ class TextList extends React.Component {
     window.localStorage.setItem('comments', JSON.stringify(nooStorage));
 }
   textChange(e) {
-    this.setState({preview: e.target.value})
+    this.setState({
+      preview: e.target.value,
+      input: e.target
+    });
   }
   submitComment(e) {
     let sendTextToWatson = new Request('/watsonRequest', {
@@ -48,7 +52,11 @@ class TextList extends React.Component {
           documentToneCategories: json.document_tone.tone_categories,
           sentencesTone: json.sentences_tone
         })
-        this.setState({comments: this.state.comments});
+        this.setState({
+          comments: this.state.comments,
+          preview: '',
+        });
+        this.state.input.value= '';
         window.localStorage.setItem('comments', JSON.stringify(this.state.comments))
       }
     )
@@ -56,14 +64,13 @@ class TextList extends React.Component {
   render() {
     return (
       <Grid>
-        <label for="speakToWatsonInput">Enter Your Message for Watson Here:</label>
-        <div className="input-group">
-        <input type='text' className="form-control" id="speakToWatsonInput" placeholder='Enter a message for the Watson tone analyzer' onChange={(e) => this.textChange(e)}/>
-        <span className="input-group-btn">
-        <button type='button' className="btn btn-success" id="speakToWatsonInput" onClick={
+        <TextExplanation/>
+        <div className="form-group">
+        <textarea type='text' className="form-control" rows="3" id="speakToWatsonInput" placeholder='Enter a message for the Watson tone analyzer' onChange={(e) => this.textChange(e)}/>
+        <br></br>
+        <button type='button' className="btn btn-success" onClick={
           this.submitComment.bind(this)
         }>Click this dang thing now!</button>
-        </span>
         </div>
         <br></br>
         {this.state.preview ? <Preview preview={this.state.preview}/> : null}

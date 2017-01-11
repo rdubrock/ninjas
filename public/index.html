@@ -2,12 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Ninjas Rule</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tone Analyzer</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+    <script type="text/javascript" src="jspm_packages/npm/whatwg-fetch@1.0.0/fetch.js"></script>
+    <!-- <script type="text/javascript">
+      google.charts.load('current', {packages: ['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+    </script> -->
   </head>
   <body>
     <script src="jspm_packages/system.js"></script>
     <script src="config.js"></script>
+    <script src="build.js"></script>
     <div id="content"></div>
     <script>
       System.import('javascripts/index.js');
